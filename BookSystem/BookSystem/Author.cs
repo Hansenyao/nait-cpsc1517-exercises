@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ *  File Name: Author.cs
+ *  Description: The class file for Author which contains the characteristics for an author.
+ *  Version: 1.0
+ *  
+ *  Author: Youfang Yao
+ *  Date: 2024-09-16
+ * 
+ **/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +16,16 @@ using System.Threading.Tasks;
 
 namespace BookSystem
 {
+    /*
+     * Class Name: Author
+     * Description: This class contains the characteristics for an author.
+     *      FirstName (e.g.: "Lowand") - Identifies the author's first name.
+     *      Lastname (e.g: "Behold") - Identifies the author's last name.
+     *      ContactUrl (e.g. "LowandBehold.fantasy.ca") - Identifies the web site of the author.
+     *      ResidentCity - Current city author is residing.
+     *      ResidentCountry - Current country author is residing
+     * 
+     **/
     public class Author
     {
         #region Data Members
@@ -23,6 +42,7 @@ namespace BookSystem
             get { return _contactUrl; }
             set
             {
+                // The regex pattern for a valid url string
                 const string REGEX_PATTERN = @"(https?://www)?[a-zA-Z0-9]+\.\w{2,}(?!\.)";
 
                 // A contact url can't be empty
@@ -67,7 +87,7 @@ namespace BookSystem
         }
         public string AuthorName
         {
-            get { return $"{LastName}, {FirstName}"; }
+            get { return $"{_lastName}, {_firstName}"; }
         }
         public string ResidentCity
         {
