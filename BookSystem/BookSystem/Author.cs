@@ -43,7 +43,7 @@ namespace BookSystem
             set
             {
                 // The regex pattern for a valid url string
-                const string REGEX_PATTERN = @"(https?://www)?[a-zA-Z0-9]+\.\w{2,}(?!\.)";
+                const string REGEX_PATTERN_URL = @"(https?://www)?[a-zA-Z0-9]+\.\w{2,}(?!\.)";
 
                 // A contact url can't be empty
                 if (string.IsNullOrWhiteSpace(value))
@@ -51,8 +51,8 @@ namespace BookSystem
                     throw new ArgumentNullException("Contact URL is required.");
                 }
 
-                // A contact url must match the URL pattern
-                Regex regex = new Regex(REGEX_PATTERN);
+                // A contact url must match the URL regex pattern
+                Regex regex = new Regex(REGEX_PATTERN_URL);
                 if (!regex.IsMatch(value.Trim()))
                 {
                     throw new ArgumentNullException("Contact URL is not an acceptable url pattern.");
