@@ -1,5 +1,5 @@
 # Basic Starter Kit
 
-## Owner your name
+## Youfang Yao
 
-alter this statement to indicate the usage of this repository
+All exercises projects for CPSC1517.
