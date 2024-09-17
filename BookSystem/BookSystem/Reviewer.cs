@@ -31,7 +31,7 @@ namespace BookSystem
         private string _email = string.Empty;
         private string _firstName = string.Empty;
         private string _lastName = string.Empty; 
-        private string? _organization = string.Empty;   // optional
+        private string? _organization = null;   // optional
         #endregion //Data Members
 
         #region Properties
@@ -83,7 +83,7 @@ namespace BookSystem
                 _lastName = value.Trim();
             }
         }
-        public string? Organization
+        public string Organization
         {
             get { return _organization; }
             set
@@ -103,7 +103,7 @@ namespace BookSystem
             FirstName = firstName;
             LastName = lastName;
             Email = email;
-            Organization = organization;
+            Organization = organization; // Orgnaizaiton is null in default case
         }
         #endregion //Constructors
 
