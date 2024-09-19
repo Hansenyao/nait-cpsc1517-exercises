@@ -85,10 +85,6 @@ namespace BookSystem
                 _lastName = value.Trim();
             }
         }
-        public string AuthorName
-        {
-            get { return $"{_lastName}, {_firstName}"; }
-        }
         public string ResidentCity
         {
             get { return _residentCity; }
@@ -113,6 +109,8 @@ namespace BookSystem
                 _residentCountry = value.Trim();
             }
         }
+        // Read-only properties
+        public string AuthorName => $"{LastName}, {FirstName}";
         #endregion  //Properties
 
         #region Constructors

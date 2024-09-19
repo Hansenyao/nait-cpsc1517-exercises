@@ -91,10 +91,8 @@ namespace BookSystem
                 _organization = value;
             }
         }
-        public string ReviewerName
-        {
-            get { return $"{_lastName}, {_firstName}"; }
-        }
+        // Read-only properties
+        public string ReviewerName => $"{LastName}, {FirstName}";
         #endregion //Propertes
 
         #region Constructors
