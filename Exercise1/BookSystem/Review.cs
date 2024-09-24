@@ -87,7 +87,7 @@ namespace BookSystem
         #region Methods
         public override string ToString()
         {
-            return $"{ISBN},{Reviewer.ToString()},{Rating},{Comment}";
+            return $"{ISBN},{Reviewer},{Rating},{Comment}";
         }
         #endregion //Methods
     }
