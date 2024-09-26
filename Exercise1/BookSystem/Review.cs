@@ -77,6 +77,10 @@ namespace BookSystem
         #region Constructors
         public Review(string isbn, Reviewer reviewer, RatingType rating, string comment)
         {
+            if (!Enum.IsDefined(typeof(RatingType), rating))
+            {
+                throw new ArgumentException($"RatingType {rating} is invalid.");
+            }
             ISBN = isbn;
             Reviewer = reviewer;
             Rating = rating;
