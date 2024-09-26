@@ -83,12 +83,12 @@ namespace BookSystem
                 _lastName = value.Trim();
             }
         }
-        public string Organization
+        public string? Organization
         {
             get { return _organization; }
             set
             {
-                _organization = value;
+                _organization = value?.Trim();
             }
         }
         // Read-only properties
