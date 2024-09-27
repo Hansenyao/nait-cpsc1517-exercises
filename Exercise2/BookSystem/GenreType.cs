@@ -18,7 +18,7 @@ namespace BookSystem
 {
     public enum GenreType
     {
-        Classic,
+        Classic = 1,
         Fiction,
         Fantasy,
         Mystery,
