@@ -74,15 +74,15 @@ namespace BookSystem
             get { return _publishYear; }
             set 
             { 
-                // Publish year must be a positive and non-zero whole number
-                if (value <= 0)
+                // Publish year must be a positive and non-zero whole number with 4 digitals
+                if (value <= 0 || value.ToString().Length != 4)
                 {
-                    throw new ArgumentException("Publish year is invalid. Must be a positive and non-zero whole number.");
+                    throw new ArgumentException($"Publish year of {value} is invalid. Use yyyy format.");
                 }
                 // Publish year cannot be a year in the future
                 if (value > DateTime.Today.Year)
                 {
-                    throw new ArgumentException("Publish year is invalid. Cannot be a year in the future.");
+                    throw new ArgumentException($"Publish year of {value} is invalid. Cannot be a year in the future.");
                 }
                 _publishYear = value; 
             }
@@ -125,7 +125,6 @@ namespace BookSystem
             Author = author;
 
             // genre must be a value of GenreType
-
             if (!Enum.IsDefined(typeof(GenreType), genre))
             {
                 throw new ArgumentException($"GenreType value {genre} is invalid.");
@@ -144,7 +143,7 @@ namespace BookSystem
                     }
                 }
                 // Business rule 2: A reviewer can only submit a single review.
-                if (reviews.GroupBy(x => x.Reviewer).Any(g => g.Count() > 1))
+                if (reviews.GroupBy(x => x.Reviewer.ReviewerName).Any(g => g.Count() > 1))
                 {
                     throw new ArgumentException("A reviewer can only submit a single review.");
                 }

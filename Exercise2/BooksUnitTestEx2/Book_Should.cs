@@ -51,8 +51,8 @@ namespace BooksUnitTestEx2
             actual.Author.ResidentCity.Should().Be(expectedCity);
             actual.Author.ResidentCountry.Should().Be(expectedCountry);
             actual.Genre.Should().Be(expectedGenre);
-            actual.Reviews.Should().BeEmpty();
-            actual.Reviews.Count.Should().Be(0);
+            actual.Reviews.Should().HaveCount(0);
+            actual.TotalReviews.Should().Be(0);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace BooksUnitTestEx2
             actual.Author.ResidentCity.Should().Be(expectedCity);
             actual.Author.ResidentCountry.Should().Be(expectedCountry);
             actual.Genre.Should().Be(expectedGenre);
-            actual.Reviews.Count.Should().Be(expectedReviews.Count);
+            actual.TotalReviews.Should().Be(expectedReviews.Count);
             actual.Reviews.Should().BeSameAs(expectedReviews);
         }
         [Theory]
@@ -170,7 +170,7 @@ namespace BooksUnitTestEx2
             actual.AddReview(isbn, review);
 
             //Assert
-            actual.Reviews.Count.Should().Be(1);
+            actual.TotalReviews.Should().Be(1);
             actual.Reviews.Should().Contain(review);
         }
         [Fact]
@@ -186,19 +186,21 @@ namespace BooksUnitTestEx2
             actual.AddReview(isbn, review);
 
             //Assert
-            actual.Reviews.Count.Should().Be(countBeforeAdd + 1);
+            actual.TotalReviews.Should().Be(countBeforeAdd + 1);
             actual.Reviews.Should().Contain(review);
         }
-        [Fact]
-        public void Throw_Exception_For_Add_Review_Without_ISBN()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void Throw_Exception_For_Add_Review_Without_ISBN(string isbn)
         {
             //Arrage
             Book actual = MakeBook();
-            string isbn = actual.ISBN;
-            Review review = new Review(isbn, new Reviewer("bob", "John", "bob.j@gmail.com"), RatingType.EasyReading, "Easy to read.");
+            Review review = new Review(actual.ISBN, new Reviewer("bob", "John", "bob.j@gmail.com"), RatingType.EasyReading, "Easy to read.");
 
             //Action
-            Action action = () => actual.AddReview("", review);
+            Action action = () => actual.AddReview(isbn, review);
 
             //Assert
             action.Should().Throw<ArgumentNullException>().WithMessage("*ISBN is required*");
