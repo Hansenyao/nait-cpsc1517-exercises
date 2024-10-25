@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,7 +95,32 @@ namespace BookSystem
         {
             return $"{ISBN},{Title},{Author},{Reviewer},{Rating},{Comment}";
         }
-       
-       
+
+        // Construct a Review object instance by parsing a string, which
+        // is outputed by ToString()
+        public static Review Parse(string item)
+        {
+            // Throw an exception if inputs is null
+            if (string.IsNullOrWhiteSpace(item))
+            {
+                throw new ArgumentNullException("Parameter item is null!");
+            }
+
+            // Split the string into an array
+            // Throw an exception if string's format is invalid
+            string[] reviewData = item.Split(",");
+            if (reviewData.Length != 6)
+            {
+                throw new FormatException($"Invalid review format: { item }");
+            }
+
+            // Construct and return a new Review object instance
+            return new Review(reviewData[0],
+                              reviewData[1],
+                              reviewData[2],
+                              reviewData[3],
+                              (RatingType)Enum.Parse(typeof(RatingType),reviewData[4]),
+                              reviewData[5]);
+        }
     }
 }
