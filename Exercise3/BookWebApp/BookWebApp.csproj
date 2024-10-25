@@ -10,8 +10,4 @@
     <ProjectReference Include="..\BookSystem\BookSystem.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,58 @@
+﻿@page "/reviewreport"
+<PageTitle>Review Report</PageTitle>
+@rendermode InteractiveServer
+
+<h3>Review Report</h3>
+
+@*
+    Occurs some errors, display errors in the top
+*@
+@if (errorMsgs.Count > 0)
+{
+    <div class="alert alert-danger">
+        <p>Please fix following issues:</p>
+        @foreach (var error in errorMsgs)
+        {
+            <p>@error</p>
+        }
+    </div>
+}
+@*
+    To display all loaded reviews in table
+    If no any reviews loaded, display a warning message.
+*@
+@if (reviews.Count == 0)
+{
+    <p>No reviews to display.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Reviewer</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in reviews)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.Reviewer</td>
+                    <td>@item.Rating</td>
+                    <td>@item.Comment</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+@code {
+
+}
