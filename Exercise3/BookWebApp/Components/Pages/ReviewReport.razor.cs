@@ -9,7 +9,7 @@ namespace BookWebApp.Components.Pages
 
         protected override void OnInitialized()
         {
-            const string CSV_FILE_NAME = @"Data/TestData-bad.csv";
+            const string CSV_FILE_NAME = @"Data/TestData.csv";
 
             ReadReviewsFromFile(CSV_FILE_NAME);
 

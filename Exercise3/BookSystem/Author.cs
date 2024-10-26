@@ -9,7 +9,7 @@ namespace BookSystem
 {
     public class Author
     {
-        public List<string> Author_GetList()
+        static public List<string> Author_GetList()
         {
             List<string> authorList = new List<string>();
 
