@@ -15,7 +15,7 @@ namespace BookWebApp.Components.Pages
         private List<string> authors = [];
         //
         private string reviewer = string.Empty;
-        private RatingType rating = RatingType.Buy;
+        private RatingType rating = RatingType.MustHave;
         private string comment = string.Empty;
 
         // Inject a service to prompt message to user
@@ -105,7 +105,7 @@ namespace BookWebApp.Components.Pages
                 title = string.Empty;
                 selectedAuthor = string.Empty;
                 reviewer = string.Empty;
-                rating = RatingType.Buy;
+                rating = RatingType.MustHave;
                 comment = string.Empty;
 
                 // Update elements in UI
@@ -117,6 +117,7 @@ namespace BookWebApp.Components.Pages
         {
             NavigationManager.NavigateTo("reviewreport");
         }
+
         private Exception GetInnerException(Exception ex)
         {
             while (ex.InnerException != null)

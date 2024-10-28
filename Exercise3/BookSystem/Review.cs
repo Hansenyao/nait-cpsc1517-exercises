@@ -103,7 +103,7 @@ namespace BookSystem
             // Throw an exception if inputs is null
             if (string.IsNullOrWhiteSpace(item))
             {
-                throw new ArgumentNullException("Parameter item is null!");
+                throw new ArgumentNullException($"Inputs string is null!");
             }
 
             // Split the string into an array

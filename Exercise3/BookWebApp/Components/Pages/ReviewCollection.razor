@@ -31,74 +31,78 @@
     <div class="col-2">
 
     </div>
-
+    <!--Book Details Area-->
     <div class="col-4">
         <h4>Books Details</h4>
-        <div>
-            <label>ISBN:</label>
-            <input type="text" id="isbn" @bind="isbn"/>
-        </div>
-        <br/>
-        <div>
-            <label>Title:</label>
-            <input type="text" id="title" @bind="title"/>
-        </div>
-        <br/>
-        <div>
-            <label>Select Author:</label>
-            <select id="author" @bind="selectedAuthor">
-                <option value="">Select an author...</option>
-                @foreach (var item in authors)
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="col-6">
-        <h4>Review</h4>
-        <div>
-            <label>Reviewer:</label>
-            <input type="text" id="reveiwer" @bind="reviewer" />
+        <!--For ISBN-->
+        <div class="form-group row">
+            <label for="isbn" class="col-sm-4 col-form-label">ISBN<span style="color:red">*</span></label>
+            <div class="col-8">
+                <input type="text" class="form-control" id="isbn" @bind="isbn" required/>
+            </div>
         </div>
         <br />
-        <div>
-            <label>Rating:</label>
-            <select id="rating" @bind="rating">
-                <option value="">Select a rating...</option>
-                @foreach (var item in Enum.GetValues(typeof(RatingType)))
-                {
-                    <option value="@item">@item</option>
-                }
-            </select>
+        <!--For Title-->
+        <div class="form-group row">
+            <label for="title" class="col-sm-4 col-form-label">Title<span style="color:red">*</span></label>
+            <div class="col-8">
+                <input type="text" class="form-control" id="title" @bind="title" required />
+            </div>
         </div>
         <br/>
-        <div>
-            <label>Comment:</label>
-            <textarea id="comment" @bind="comment"></textarea>
+        <!--Author Selector-->
+        <div class="form-group row">
+            <label for="author" class="col-sm-4 col-form-label">Select Author<span style="color:red">*</span></label>
+            <div class="col-8">
+                <select class="form-control" id="author" @bind="selectedAuthor">
+                    <option value="">Select an author...</option>
+                    @foreach (var item in authors)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col text-center">
-            <button type="submit" class="btn btn-primary rounded-pill" @onclick="OnCollect">
-                Collect
-            </button>
+    <!--Review Aream-->
+    <div class="col-6">
+        <h4>Review</h4>
+        <!--Reviewer-->
+        <div class="form-group row">
+            <label for="reviewer" class="col-sm-4 col-form-label">Reviewer<span style="color:red">*</span></label>
+            <div class="col-8">
+                <input type="text" class="form-control" id="reviewer" @bind="reviewer" required/>
+            </div>
         </div>
-        <div class="col text-center">
-            <button class="btn btn-warning rounded-pill" @onclick="OnClearForm">
-                Clear
-            </button>
+        <br />
+        <!--Rating-->
+        <div class="form-group row">
+            <label for="rating" class="col-sm-4 col-form-label">Rating<span style="color:red">*</span></label>
+            <div class="col-8">
+                <select class="form-control" id="rating" @bind="rating" required>
+                    @foreach (var item in Enum.GetValues(typeof(RatingType)))
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+            </div>
         </div>
-        <div class="col text-center">
-            <button class="btn btn-primary rounded-pill" @onclick="OnGoToReport">
-                Reprot
-            </button>
+        <br/>
+        <!--Comment-->
+        <div class="form-group row">
+            <label for="comment" class="col-sm-4 col-form-label">Comment<span style="color:red">*</span></label>
+            <div class="col-8">
+                <textarea class="form-control" id="comment" @bind="comment"></textarea>
+            </div>
         </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <!--Buttons Area-->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary rounded-pill" @onclick="OnCollect">Collect</button>
+        <button class="btn btn-warning rounded-pill" @onclick="OnClearForm">Clear</button>
+        <button class="btn btn-primary rounded-pill" @onclick="OnGoToReport">Reprot</button>
     </div>
 </fieldset>
-
-
-@code {
-
-}

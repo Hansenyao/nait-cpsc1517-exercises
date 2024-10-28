@@ -50,8 +50,13 @@ namespace BookWebApp.Components.Pages
             {
                 try
                 {
-                    itemIndex++;
-                    reviews.Add(Review.Parse(line));
+                    // For each line, construct a Review object instance
+                    // and we need to skip blank lines
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        itemIndex++;
+                        reviews.Add(Review.Parse(line));
+                    }
                 }
                 catch (Exception ex)
                 {
