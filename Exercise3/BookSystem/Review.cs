@@ -111,7 +111,7 @@ namespace BookSystem
             string[] reviewData = item.Split(",");
             if (reviewData.Length != 6)
             {
-                throw new FormatException($"Invalid review format: { item }");
+                throw new FormatException($"String not in expected format. Review: { item }");
             }
 
             // Construct and return a new Review object instance
