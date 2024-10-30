@@ -109,9 +109,13 @@ namespace BookSystem
             // Split the string into an array
             // Throw an exception if string's format is invalid
             string[] reviewData = item.Split(",");
-            if (reviewData.Length != 6)
+            if (reviewData.Length < 6)
             {
-                throw new FormatException($"String not in expected format. Review: { item }");
+                throw new FormatException($"String not in expected format (Less than expected items). Review: { item }");
+            }
+            else if (reviewData.Length > 6)
+            {
+                throw new FormatException($"String not in expected format (Too many items). Review: {item}");
             }
 
             // Construct and return a new Review object instance
