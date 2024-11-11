@@ -1,5 +1,6 @@
 ﻿using BookSystemDB.DAL;
 using BookSystemDB.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace BookSystemDB.BLL
             _context = context;
         }
 
+        public List<Book> GetAllBooks()
+        {
+            return _context.Books.ToList();
+        }
         public List<Book> GetBooksByGenre(int genreId)
         {
             return _context.Books.Where(x => x.GenreId == genreId).ToList();

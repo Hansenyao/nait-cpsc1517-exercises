@@ -18,11 +18,13 @@
     </div>
 }
 
+<!--Feedback Area-->
 @if (feedback.Length > 0)
 {
     <p class="mb-2 alert-info">@feedback</p>
 }
 
+<!--Search Area-->
 <div class="row">
     <label class="col-sm-2 col-form-label" for="genreSelect">Select your Genre:</label>
     <div class="col col-4">
@@ -35,11 +37,45 @@
         </select>
     </div>
     <div class="col col-6 d-flex align-items-start justify-content-start gap-2">
-        <button class="btn btn-outline-primary">Fetch Books</button>
-        <button class="btn btn-outline-secondary">Clear</button>
+        <button class="btn btn-outline-primary" @onclick="OnLoadBookByGenre">Fetch Books</button>
+        <button class="btn btn-outline-secondary" @onclick="OnClear">Clear</button>
     </div>
 </div>
 
+<!--Table Area-->
 <div class="mt-5">
-
+    @if (bookList.Count == 0 && !noBooks)
+    {
+        <h4 class="text-center">Please select a genre to display books.</h4>
+    }
+    else if (noBooks)
+    {
+        <h4 class="text-center">No books belong to the selected genre.</h4>
+    }
+    else
+    {
+        <div style="height:60vh;" class="overflow-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-left">Title</th>
+                        <th class="text-left">ISBN</th>
+                        <th class="text-left">Author</th>
+                        <th class="text-left">Published</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var book in bookList)
+                    {
+                        <tr>
+                            <td>@book.Title</td>
+                            <td>@book.ISBN</td>
+                            <td>@GetAuthorFullName(book.AuthorId)</td>
+                            <td>@book.YearPublished</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>
