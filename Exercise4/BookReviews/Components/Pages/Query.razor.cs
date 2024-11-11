@@ -33,9 +33,6 @@ namespace BookReviews.Components.Pages
                 errorMsgs.Add($"Data Loading Error: {GetInnerException(ex).Message}");
             }
 
-            // List all books in default
-            OnLoadBookByGenre();
-
             base.OnInitialized();
         }
 
@@ -47,10 +44,10 @@ namespace BookReviews.Components.Pages
 
             try
             {
-                // Load all books if no selected genre
+                // Show an error message if no selected genre
                 if (selectedGenreId == 0)
                 {
-                    bookList = bookServices.GetAllBooks();
+                    errorMsgs.Add("Select a genre before fetching your books.");
                 }
                 // Load books which belong to the selected genre
                 else
@@ -74,9 +71,12 @@ namespace BookReviews.Components.Pages
 
         public async void OnClear()
         {
-            // Show all books in default
+            // clear selecting and table
             selectedGenreId = 0;
-            OnLoadBookByGenre();
+            feedback = string.Empty;
+            errorMsgs.Clear();
+            bookList.Clear();
+            noBooks = false;
 
             // Re-render page with new datas (in an async mode)
             await InvokeAsync(StateHasChanged);

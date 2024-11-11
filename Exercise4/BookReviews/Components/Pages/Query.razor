@@ -29,7 +29,7 @@
     <label class="col-sm-2 col-form-label" for="genreSelect">Select your Genre:</label>
     <div class="col col-4">
         <select class="form-select" id="genreSelect" @bind="selectedGenreId">
-            <option value="0">All</option>
+            <option value="0">select ...</option>
             @foreach (var genre in genreList)
             {
                 <option value="@genre.GenreId">@genre.Description</option>
