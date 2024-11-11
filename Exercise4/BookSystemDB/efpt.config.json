@@ -15,71 +15,27 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[Addresses]",
+         "Name": "[dbo].[Authors]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[BuildVersion]",
+         "Name": "[dbo].[Books]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Categories]",
+         "Name": "[dbo].[DbVersion]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Customers]",
+         "Name": "[dbo].[Genres]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Employees]",
+         "Name": "[dbo].[Ratings]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[EmployeeTerritories]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ManifestItems]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[OrderDetails]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Orders]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Payments]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[PaymentTypes]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Products]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Regions]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Shipments]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Shippers]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Suppliers]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Territories]",
+         "Name": "[dbo].[Reviews]",
          "ObjectType": 0
       }
    ],

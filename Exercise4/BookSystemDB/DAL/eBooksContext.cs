@@ -14,198 +14,59 @@ public partial class eBooksContext : DbContext
     {
     }
 
-    public virtual DbSet<Address> Addresses { get; set; }
+    public virtual DbSet<Author> Authors { get; set; }
 
-    public virtual DbSet<BuildVersion> BuildVersions { get; set; }
+    public virtual DbSet<Book> Books { get; set; }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<DbVersion> DbVersions { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Genre> Genres { get; set; }
 
-    public virtual DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<Rating> Ratings { get; set; }
 
-    public virtual DbSet<ManifestItem> ManifestItems { get; set; }
-
-    public virtual DbSet<Order> Orders { get; set; }
-
-    public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-
-    public virtual DbSet<Payment> Payments { get; set; }
-
-    public virtual DbSet<PaymentType> PaymentTypes { get; set; }
-
-    public virtual DbSet<Product> Products { get; set; }
-
-    public virtual DbSet<Region> Regions { get; set; }
-
-    public virtual DbSet<Shipment> Shipments { get; set; }
-
-    public virtual DbSet<Shipper> Shippers { get; set; }
-
-    public virtual DbSet<Supplier> Suppliers { get; set; }
-
-    public virtual DbSet<Territory> Territories { get; set; }
+    public virtual DbSet<Review> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.UseCollation("Latin1_General_CI_AS");
-
-        modelBuilder.Entity<BuildVersion>(entity =>
+        modelBuilder.Entity<Author>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BuildVer__3214EC0758EA6836");
-
-            entity.Property(e => e.ReleaseDate).HasDefaultValueSql("(getdate())");
+            entity.HasKey(e => e.AuthorId).HasName("PK_Authors_AuthorId");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<Book>(entity =>
         {
-            entity.Property(e => e.CustomerID).IsFixedLength();
+            entity.HasKey(e => e.ISBN).HasName("PK_Books_ISBN");
 
-            entity.HasOne(d => d.Address).WithOne(p => p.Customer)
+            entity.HasOne(d => d.Author).WithMany(p => p.Books)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Customers_Addresses");
+                .HasConstraintName("FK_BookAuthor_AuthorId");
+
+            entity.HasOne(d => d.Genre).WithMany(p => p.Books)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BookGenres_GenreId");
         });
 
-        modelBuilder.Entity<Employee>(entity =>
+        modelBuilder.Entity<Genre>(entity =>
         {
-            entity.Property(e => e.Active).HasDefaultValue(true);
-
-            entity.HasOne(d => d.Address).WithOne(p => p.Employee)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Employees_Addresses");
-
-            entity.HasOne(d => d.ReportsToNavigation).WithMany(p => p.InverseReportsToNavigation).HasConstraintName("FK_Employees_Employees");
-
-            entity.HasMany(d => d.Territories).WithMany(p => p.Employees)
-                .UsingEntity<Dictionary<string, object>>(
-                    "EmployeeTerritory",
-                    r => r.HasOne<Territory>().WithMany()
-                        .HasForeignKey("TerritoryID")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_EmployeeTerritories_Territories"),
-                    l => l.HasOne<Employee>().WithMany()
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_EmployeeTerritories_Employees"),
-                    j =>
-                    {
-                        j.HasKey("EmployeeID", "TerritoryID").IsClustered(false);
-                        j.ToTable("EmployeeTerritories");
-                        j.IndexerProperty<string>("TerritoryID").HasMaxLength(20);
-                    });
+            entity.HasKey(e => e.GenreId).HasName("PK_Genres_GenreId");
         });
 
-        modelBuilder.Entity<ManifestItem>(entity =>
+        modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.ManifestItemID).HasName("PK__Manifest__9000192C933C4878");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.ManifestItems)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ManifestItems_ToProducts");
-
-            entity.HasOne(d => d.Shipment).WithMany(p => p.ManifestItems)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ManifestItems_ToShipments");
+            entity.HasKey(e => e.RatingId).HasName("PK_Ratings_RatingId");
         });
 
-        modelBuilder.Entity<Order>(entity =>
+        modelBuilder.Entity<Review>(entity =>
         {
-            entity.Property(e => e.CustomerID).IsFixedLength();
-            entity.Property(e => e.Freight).HasDefaultValue(0m);
+            entity.HasKey(e => e.ReviewId).HasName("PK_Reviews_ReviewId");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+            entity.HasOne(d => d.ISBNNavigation).WithMany(p => p.Reviews)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orders_Customers");
+                .HasConstraintName("FK_ReviewsBooks");
 
-            entity.HasOne(d => d.SalesRep).WithMany(p => p.Orders).HasConstraintName("FK_Orders_Employees");
-
-            entity.HasOne(d => d.ShipAddress).WithMany(p => p.Orders).HasConstraintName("FK_Orders_Addresses");
-        });
-
-        modelBuilder.Entity<OrderDetail>(entity =>
-        {
-            entity.Property(e => e.Quantity).HasDefaultValue((short)1);
-
-            entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
+            entity.HasOne(d => d.Rating).WithMany(p => p.Reviews)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Order_Details_Orders");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Order_Details_Products");
-        });
-
-        modelBuilder.Entity<Payment>(entity =>
-        {
-            entity.HasKey(e => e.PaymentID).HasName("PK_PAY_PayID");
-
-            entity.Property(e => e.PaymentDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.Payments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Payments_ToTable");
-
-            entity.HasOne(d => d.PaymentType).WithMany(p => p.Payments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PAY_PTYP_PayTypeID");
-        });
-
-        modelBuilder.Entity<PaymentType>(entity =>
-        {
-            entity.HasKey(e => e.PaymentTypeID).HasName("PK_PTYP_PayTypeID");
-
-            entity.Property(e => e.PaymentTypeID).ValueGeneratedOnAdd();
-        });
-
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.HasOne(d => d.Category).WithMany(p => p.Products)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Products_Categories");
-
-            entity.HasOne(d => d.Supplier).WithMany(p => p.Products)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Products_Suppliers");
-        });
-
-        modelBuilder.Entity<Region>(entity =>
-        {
-            entity.HasKey(e => e.RegionID)
-                .HasName("PK_Region")
-                .IsClustered(false);
-
-            entity.Property(e => e.RegionDescription).IsFixedLength();
-        });
-
-        modelBuilder.Entity<Shipment>(entity =>
-        {
-            entity.HasKey(e => e.ShipmentID).HasName("PK__Shipment__5CAD378D23ECD1BE");
-
-            entity.HasOne(d => d.Order).WithMany(p => p.Shipments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Shipments_ToOrders");
-
-            entity.HasOne(d => d.ShipViaNavigation).WithMany(p => p.Shipments)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Shipments_ToTShippers");
-        });
-
-        modelBuilder.Entity<Supplier>(entity =>
-        {
-            entity.HasOne(d => d.Address).WithOne(p => p.Supplier)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Suppliers_Addresses");
-        });
-
-        modelBuilder.Entity<Territory>(entity =>
-        {
-            entity.HasKey(e => e.TerritoryID).IsClustered(false);
-
-            entity.Property(e => e.TerritoryDescription).IsFixedLength();
-
-            entity.HasOne(d => d.Region).WithMany(p => p.Territories)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Territories_Region");
+                .HasConstraintName("FK_ReviewsRatings");
         });
 
         OnModelCreatingPartial(modelBuilder);

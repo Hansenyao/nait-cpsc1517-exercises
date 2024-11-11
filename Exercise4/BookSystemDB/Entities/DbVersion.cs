@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookSystemDB.Entities;
 
-[Table("BuildVersion")]
-public partial class BuildVersion
+[Table("DbVersion")]
+public partial class DbVersion
 {
     [Key]
     public int Id { get; set; }

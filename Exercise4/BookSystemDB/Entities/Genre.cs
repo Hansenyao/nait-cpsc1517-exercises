@@ -8,19 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookSystemDB.Entities;
 
-public partial class Shipper
+public partial class Genre
 {
     [Key]
-    public int ShipperID { get; set; }
+    public int GenreId { get; set; }
 
     [Required]
-    [StringLength(40)]
-    public string CompanyName { get; set; }
+    [StringLength(20)]
+    public string Description { get; set; }
 
-    [Required]
-    [StringLength(24)]
-    public string Phone { get; set; }
-
-    [InverseProperty("ShipViaNavigation")]
-    public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
+    [InverseProperty("Genre")]
+    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 }

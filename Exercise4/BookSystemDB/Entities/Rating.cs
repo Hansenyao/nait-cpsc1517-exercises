@@ -8,16 +8,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookSystemDB.Entities;
 
-public partial class PaymentType
+public partial class Rating
 {
     [Key]
-    public byte PaymentTypeID { get; set; }
+    public int RatingId { get; set; }
 
     [Required]
-    [StringLength(40)]
-    [Unicode(false)]
-    public string PaymentTypeDescription { get; set; }
+    [StringLength(20)]
+    public string Description { get; set; }
 
-    [InverseProperty("PaymentType")]
-    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    [InverseProperty("Rating")]
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }
