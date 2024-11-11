@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace BookSystemDB.BLL
 {
-    public class GenreServices
+    public class BookServices
     {
         private eBooksContext _context;
-        public GenreServices(eBooksContext context)
+
+        public BookServices(eBooksContext context)
         {
             _context = context;
         }
 
-        #region Queriese
-        public List<Genre> GetGenres()
+        public List<Book> GetBooksByGenre(int genreId)
         {
-            return _context.Genres.OrderBy(x => x.Description).ToList();
+            return _context.Books.Where(x => x.GenreId == genreId).ToList();
         }
-        #endregion
     }
 }

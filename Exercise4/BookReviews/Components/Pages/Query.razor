@@ -1,8 +1,45 @@
 ﻿@page "/query"
 <PageTitle>Books by Genre</PageTitle>
+@rendermode InteractiveServer
 
 <h3>Books by Genre</h3>
 
-@code {
-
+<!--Error Area-->
+@if (errorMsgs.Count > 0)
+{
+    <div class="alert alert-danger">
+        <p>Please fix the following issues:</p>
+        <ul>
+            @foreach (var error in errorMsgs)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
 }
+
+@if (feedback.Length > 0)
+{
+    <p class="mb-2 alert-info">@feedback</p>
+}
+
+<div class="row">
+    <label class="col-sm-2 col-form-label" for="genreSelect">Select your Genre:</label>
+    <div class="col col-4">
+        <select class="form-select" id="genreSelect" @bind="selectedGenreId">
+            <option value="0">All</option>
+            @foreach (var genre in genreList)
+            {
+                <option value="@genre.GenreId">@genre.Description</option>
+            }
+        </select>
+    </div>
+    <div class="col col-6 d-flex align-items-start justify-content-start gap-2">
+        <button class="btn btn-outline-primary">Fetch Books</button>
+        <button class="btn btn-outline-secondary">Clear</button>
+    </div>
+</div>
+
+<div class="mt-5">
+
+</div>
