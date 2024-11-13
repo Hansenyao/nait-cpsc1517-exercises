@@ -21,6 +21,8 @@ public partial class Author
     [StringLength(25)]
     public string FirstName { get; set; }
 
+    public string FullName { get { return $"{FirstName} {LastName}"; } }
+
     [Required]
     [StringLength(50)]
     public string ContactUrl { get; set; }

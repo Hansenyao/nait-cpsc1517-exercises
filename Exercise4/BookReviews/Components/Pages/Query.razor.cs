@@ -94,7 +94,7 @@ namespace BookReviews.Components.Pages
             }
             else
             {
-                return $"{author.FirstName} {author.LastName}";
+                return author.FullName;
             }
         }
 
