@@ -22,9 +22,9 @@ namespace BookReviews.Components.Pages
 
         protected override void OnInitialized()
         {
-            // List all genres description in select control
             try
             {
+                // Initialize genres description list and authors list
                 genreList = genreServices.GetGenres();
                 authorList = authorServices.GetAuthors();
             }
