@@ -21,6 +21,7 @@ public partial class Author
     [StringLength(25)]
     public string FirstName { get; set; }
 
+    [NotMapped]
     public string FullName { get { return $"{FirstName} {LastName}"; } }
 
     [Required]
