@@ -82,22 +82,6 @@ namespace BookReviews.Components.Pages
             await InvokeAsync(StateHasChanged);
         }
 
-        /*
-         *  Return an author's full name by specialized authorId
-         */
-        public string GetAuthorFullName(int authorId)
-        {
-            Author? author = authorList.Find(x=>x.AuthorId == authorId);
-            if (author == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return author.FullName;
-            }
-        }
-
         private Exception GetInnerException(Exception ex)
         {
             //drill down into your Exception until there are no more inner exceptions
