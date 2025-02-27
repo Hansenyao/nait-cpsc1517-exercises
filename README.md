@@ -2,4 +2,4 @@
 
 ## Youfang Yao
 
-All exercises projects for CPSC1517.
+All exercises projects for CPSC1517 (Introduction to Application Development).
