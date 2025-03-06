@@ -1,5 +1,3 @@
 # Basic Starter Kit
 
-## Youfang Yao
-
-All exercises projects for CPSC1517 (Introduction to Application Development).
+All exercise projects for CPS1517 (Introduction to Application Development) course at NAIT.
